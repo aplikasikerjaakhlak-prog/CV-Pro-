@@ -13,7 +13,7 @@
 :root{--bg:#eef2f7;--panel:#fff;--ink:#0f172a;--mut:#64748b;--line:#e2e8f0;--brand:#2563eb}
 *{box-sizing:border-box}
 html,body{height:100%}
-body{margin:0;font-family:Inter,system-ui,sans-serif;color:var(--ink);background:var(--bg);display:grid;grid-template-rows:56px 1fr;overflow:hidden}
+body{height:100vh;height:100dvh;margin:0;font-family:Inter,system-ui,sans-serif;color:var(--ink);background:var(--bg);display:grid;grid-template-rows:56px 1fr;overflow:hidden}
 .topbar{display:flex;align-items:center;gap:8px;padding:0 16px;background:#0f172a;color:#fff}
 .brand{font-weight:800;font-size:17px;letter-spacing:-.01em;white-space:nowrap}
 .brand span{color:#60a5fa;font-weight:600;font-size:13px;margin-left:4px}
@@ -27,10 +27,20 @@ body{margin:0;font-family:Inter,system-ui,sans-serif;color:var(--ink);background
 .btn.danger{color:#dc2626}
 .main{display:grid;grid-template-columns:460px 1fr;min-height:0}
 .editor{background:var(--panel);border-right:1px solid var(--line);display:flex;flex-direction:column;min-height:0}
-.tabs{display:flex;overflow-x:auto;border-bottom:1px solid var(--line);padding:0 8px;flex-shrink:0;scrollbar-width:none}
-.tab{padding:13px 10px;font:600 13px Inter,sans-serif;color:var(--mut);border:0;background:none;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap}
+.tabs{display:flex;flex-wrap:wrap;border-bottom:1px solid var(--line);padding:0 8px;flex-shrink:0}
+.tab{padding:11px 9px;font:600 13px Inter,sans-serif;color:var(--mut);border:0;background:none;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap}
 .tab.on{color:var(--brand);border-color:var(--brand)}
-.pane{display:none;padding:18px;overflow-y:auto;flex:1}
+.pane{display:none;padding:18px;overflow-y:auto;flex:1;min-height:0;overscroll-behavior:contain}
+.chips{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px}
+.chips.c3{grid-template-columns:repeat(3,1fr)}
+.chip{border:2px solid var(--line);border-radius:10px;padding:5px;background:#fff;font:600 11px Inter,sans-serif;color:#334155;cursor:pointer;text-align:center}
+.chip.on{border-color:var(--brand);box-shadow:0 0 0 3px #dbeafe;color:var(--brand)}
+.chip .pvw{height:38px;border-radius:6px;margin-bottom:5px;position:relative;overflow:hidden;background:#f8fafc}
+.chip .pvw i{position:absolute;left:6px;right:6px;height:10px}
+.seg{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-bottom:16px}
+.seg button{flex:1;padding:9px 6px;border:0;background:#fff;font:600 12px Inter,sans-serif;cursor:pointer;color:var(--mut)}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button.on{background:var(--brand);color:#fff}
 .pane.on{display:block}
 .f{display:block;margin-bottom:12px;font-size:12px;font-weight:600;color:#334155}
 .f input:not([type=checkbox]),.f textarea,.f select{display:block;width:100%;margin-top:5px;padding:9px 10px;border:1px solid var(--line);border-radius:8px;font:400 14px Inter,sans-serif;color:var(--ink);background:#fff}
@@ -117,11 +127,17 @@ dialog ol{padding-left:18px;font-size:14px;line-height:1.6;color:#334155}
 .cv a{color:inherit;text-decoration:none}
 
 /* Modern */
-.t-modern{display:grid;grid-template-columns:70mm 1fr;background:linear-gradient(90deg,var(--c) 70mm,#fff 70mm)}
-.t-modern aside{padding:13mm 8mm;color:var(--on);--c:var(--on);--ct:var(--ont)}
-.t-modern aside .ph{width:40mm;height:40mm;margin:0 auto 8mm;border:3px solid var(--ont)}
-.t-modern aside .im,.t-modern aside .dt{color:inherit;opacity:.8}
-.t-modern aside .st{border-bottom:1px solid var(--ont);padding-bottom:4px}
+/* Header/banner bersama: latar solid, gradasi atau motif */
+.cv .hb{background:var(--hbg);color:var(--hon)}
+.cv .hb .jt{color:var(--hon);opacity:.92}
+.cv .hb .im,.cv .hb .dt{color:inherit;opacity:.8}
+.cv .hb svg.ic{color:inherit}
+.cv.m-waves header.hb{padding-bottom:17mm!important}
+
+.t-modern{display:grid;grid-template-columns:70mm 1fr}
+.t-modern aside{padding:13mm 8mm;--c:var(--hon);--ct:var(--hont)}
+.t-modern aside .ph{width:40mm;height:40mm;margin:0 auto 8mm;border:3px solid var(--hont)}
+.t-modern aside .st{border-bottom:1px solid var(--hont);padding-bottom:4px}
 .t-modern main{padding:13mm 11mm}
 .t-modern header{margin-bottom:8mm}
 .t-modern main .st{border-bottom:2px solid var(--ct);padding-bottom:4px}
@@ -136,6 +152,8 @@ dialog ol{padding-left:18px;font-size:14px;line-height:1.6;color:#334155}
 .t-klasik .sec{display:grid;grid-template-columns:36mm 1fr;gap:6mm;border-top:1px solid #e2e8f0;padding-top:4mm;margin-bottom:4mm}
 .t-klasik .sec:first-of-type{border-top:0;padding-top:0}
 .t-klasik .st{margin:0;font-size:.85em}
+.t-klasik .hb{margin:-14mm -16mm 5mm;padding:12mm 16mm 9mm;border-bottom:0}
+.t-klasik .hb .cline{color:inherit;opacity:.92}
 
 /* Minimalis */
 .t-minimalis{padding:16mm 14mm}
@@ -148,11 +166,12 @@ dialog ol{padding-left:18px;font-size:14px;line-height:1.6;color:#334155}
 .t-minimalis .side{border-left:1px solid #e2e8f0;padding-left:7mm}
 .t-minimalis .st{color:#0f172a;letter-spacing:.2em;font-size:.8em}
 .t-minimalis .st::after{content:"";display:block;width:8mm;height:2px;background:var(--c);margin-top:5px}
+.t-minimalis .hb{margin:-16mm -14mm 9mm;padding:12mm 14mm}
+.t-minimalis .hb .accent{background:var(--hon)}
 
 /* Kreatif */
-.t-kreatif header{background:var(--c);color:var(--on);padding:12mm 14mm;display:flex;gap:8mm;align-items:center}
-.t-kreatif header .jt{color:var(--on);opacity:.92}
-.t-kreatif .ph{width:34mm;height:34mm;border:4px solid var(--ont);flex-shrink:0}
+.t-kreatif header{padding:12mm 14mm;display:flex;gap:8mm;align-items:center}
+.t-kreatif .ph{width:34mm;height:34mm;border:4px solid var(--hont);flex-shrink:0}
 .t-kreatif .cbar{background:var(--ct);padding:3.5mm 14mm;display:flex;flex-wrap:wrap;gap:3px 18px;font-size:.88em}
 .t-kreatif .cbar span{display:inline-flex;gap:6px;align-items:flex-start}
 .t-kreatif .cbar svg{color:var(--c)}
@@ -161,9 +180,9 @@ dialog ol{padding-left:18px;font-size:14px;line-height:1.6;color:#334155}
 .t-kreatif .mainc .item{border-left:2px solid var(--ct);padding-left:10px}
 
 /* Eksekutif */
-.t-eksekutif header{background:#0f172a;color:#fff;padding:12mm 14mm 10mm;border-bottom:5px solid var(--c);display:flex;gap:8mm;align-items:center}
+.t-eksekutif header{padding:12mm 14mm 10mm;border-bottom:5px solid var(--c);display:flex;gap:8mm;align-items:center}
 .t-eksekutif .ph{width:32mm;height:32mm;flex-shrink:0;border:3px solid var(--c)}
-.t-eksekutif .jt{color:var(--hl)}
+.t-eksekutif.f-plain .hb .jt{color:var(--hl);opacity:1}
 .t-eksekutif .cols{display:grid;grid-template-columns:1fr 62mm;background:linear-gradient(90deg,#fff calc(100% - 62mm),#f1f5f9 0);min-height:calc(297mm - 55mm)}
 .t-eksekutif .mainc{padding:9mm 9mm 9mm 14mm}
 .t-eksekutif .side{padding:9mm 9mm}
@@ -182,6 +201,37 @@ dialog ol{padding-left:18px;font-size:14px;line-height:1.6;color:#334155}
 .t-timeline .tl .item{position:relative}
 .t-timeline .tl .item::before{content:"";position:absolute;left:-20px;top:.35em;width:10px;height:10px;border-radius:50%;background:#fff;border:2px solid var(--c)}
 .t-timeline .grid2{display:grid;grid-template-columns:1fr 1fr;gap:8mm}
+.t-timeline .hb{margin:-14mm -15mm 7mm;padding:10mm 15mm;border-bottom:0}
+.t-timeline .hb .hc{color:inherit}
+
+/* Banner */
+.t-banner .hb{padding:12mm 14mm 11mm;text-align:center}
+.t-banner .ph{width:34mm;height:34mm;margin:0 auto 5mm;border:4px solid var(--hont)}
+.t-banner .cline{display:flex;flex-wrap:wrap;justify-content:center;gap:3px 18px;font-size:.88em;padding:4mm 14mm;border-bottom:1px solid #e2e8f0;color:#475569}
+.t-banner .cline span{display:inline-flex;gap:6px;align-items:flex-start}
+.t-banner .cline svg{color:var(--c)}
+.t-banner .cols{display:grid;grid-template-columns:1fr 58mm;gap:9mm;padding:8mm 14mm}
+.t-banner .st{display:flex;align-items:center;gap:10px}
+.t-banner .st::after{content:"";flex:1;height:1px;background:var(--ct2)}
+
+/* Kartu */
+.t-kartu{background:var(--pg);padding:10mm}
+.t-kartu .hb{border-radius:18px;padding:10mm 11mm;display:flex;gap:7mm;align-items:center;margin-bottom:6mm}
+.t-kartu .ph{width:30mm;height:30mm;flex-shrink:0;border:3px solid var(--hont)}
+.t-kartu .cols{display:grid;grid-template-columns:1fr 62mm;gap:6mm}
+.t-kartu .sec{background:#fff;border-radius:14px;padding:5mm 6mm;margin-bottom:6mm;box-shadow:0 1px 3px rgba(15,23,42,.07)}
+.t-kartu .st{display:inline-block;background:var(--ct);padding:3px 10px;border-radius:999px;font-size:.78em}
+
+/* Gaya kotak bagian */
+.cv:not(.bx-flat).t-klasik .sec{border-top:0;padding-top:4mm}
+.cv.bx-rounded .sec{background:var(--soft);border-radius:14px;padding:4mm 5mm}
+.cv.bx-outline .sec{border:1.5px solid var(--ct2);border-radius:12px;padding:4mm 5mm}
+.cv.bx-shadow .sec{background:#fff;border-radius:12px;padding:4mm 5mm;box-shadow:0 2px 10px rgba(15,23,42,.10)}
+.cv.bx-accent .sec{border-left:4px solid var(--c);background:var(--soft);border-radius:0 12px 12px 0;padding:4mm 5mm}
+.cv.bx-pill .sec{background:var(--soft);border-radius:24px;padding:5mm 6mm}
+.cv.bx-pill .st{display:inline-block;background:var(--c);color:var(--on);padding:3px 12px;border-radius:999px}
+.t-modern aside .sec{background:none!important;border:0!important;box-shadow:none!important;padding:0!important;border-radius:0!important}
+.t-modern.bx-pill aside .st{background:none;color:inherit;padding:0 0 4px;border-radius:0}
 
 /* ============ PRINT ============ */
 @media print{
@@ -218,11 +268,22 @@ dialog ol{padding-left:18px;font-size:14px;line-height:1.6;color:#334155}
     </div>
 
     <div class="pane on" data-pane="desain">
+      <div class="h">Tema siap pakai</div>
+      <div class="chips c3" id="presets"></div>
       <div class="h">Template</div>
       <div class="tpls" id="tpls"></div>
       <div class="h">Warna aksen</div>
       <div class="swatches" id="swatches"></div>
-      <label class="f">Warna kustom <input type="color" data-path="design.color"></label>
+      <div class="row">
+        <label class="f">Warna utama <input type="color" data-path="design.color"></label>
+        <label class="f">Warna kedua (gradasi) <input type="color" data-path="design.color2"></label>
+      </div>
+      <div class="h">Latar header</div>
+      <div class="seg" id="fillSeg"></div>
+      <div class="h">Motif header</div>
+      <div class="chips" id="motifs"></div>
+      <div class="h">Gaya kotak bagian</div>
+      <div class="chips c3" id="boxes"></div>
       <div class="row">
         <label class="f">Font
           <select data-path="design.font">
@@ -364,7 +425,7 @@ dialog ol{padding-left:18px;font-size:14px;line-height:1.6;color:#334155}
    KONFIGURASI — tempel URL Web App Google Apps Script di sini
    (Deploy > New deployment > Web app > Copy URL .../exec)
    ========================================================== */
-const API_URL = 'https://script.google.com/macros/s/AKfycbxQZCrfEgpbQHrOrsPfnTMVxciuRZ-n7eEK2_As1I1rEDZWPg3JxU7yUbadJhmu0_6vbw/exec';
+const API_URL = '';
 
 const LS_KEY = 'cvpro_v1';
 const $ = (s, r = document) => r.querySelector(s);
@@ -373,7 +434,23 @@ const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const COLORS = ['#2563eb','#0f766e','#16a34a','#7c3aed','#db2777','#dc2626','#ea580c','#ca8a04','#0f172a','#475569','#0e7490','#9f1239'];
 const TEMPLATES = [
   {id:'modern', name:'Modern'}, {id:'klasik', name:'Klasik'}, {id:'minimalis', name:'Minimalis'},
-  {id:'kreatif', name:'Kreatif'}, {id:'eksekutif', name:'Eksekutif'}, {id:'timeline', name:'Timeline'}
+  {id:'kreatif', name:'Kreatif'}, {id:'eksekutif', name:'Eksekutif'}, {id:'timeline', name:'Timeline'},
+  {id:'banner', name:'Banner'}, {id:'kartu', name:'Kartu'}
+];
+const BAND_TPL = ['modern','kreatif','eksekutif','banner','kartu'];   // template yang selalu punya header berwarna
+const FILLS = [['plain','Bawaan'],['solid','Solid'],['gradient','Gradasi']];
+const MOTIFS = [['none','Polos'],['dots','Titik'],['stripes','Garis'],['grid','Kotak'],['waves','Gelombang'],['circles','Lingkaran'],['geo','Segitiga'],['zigzag','Zigzag']];
+const BOXES = [['flat','Datar'],['rounded','Rounded'],['outline','Garis tepi'],['shadow','Bayangan'],['accent','Aksen kiri'],['pill','Kapsul']];
+const PRESETS = [
+  {n:'Ocean Wave', template:'banner', color:'#0e7490', color2:'#2563eb', headerFill:'gradient', motif:'waves', box:'flat', font:'Poppins'},
+  {n:'Sunset', template:'kreatif', color:'#ea580c', color2:'#db2777', headerFill:'gradient', motif:'circles', box:'rounded', font:'Montserrat'},
+  {n:'Corporate', template:'eksekutif', color:'#1d4ed8', color2:'#0f172a', headerFill:'plain', motif:'grid', box:'flat', font:'Inter'},
+  {n:'Mint Dots', template:'kartu', color:'#0f766e', color2:'#16a34a', headerFill:'gradient', motif:'dots', box:'flat', font:'Poppins'},
+  {n:'Royal Geo', template:'modern', color:'#7c3aed', color2:'#4338ca', headerFill:'gradient', motif:'geo', box:'flat', font:'Montserrat'},
+  {n:'Rose Card', template:'kartu', color:'#db2777', color2:'#f97316', headerFill:'gradient', motif:'none', box:'flat', font:'Lora'},
+  {n:'Elegan', template:'klasik', color:'#9f1239', color2:'#7c2d12', headerFill:'plain', motif:'none', box:'flat', font:'Playfair Display'},
+  {n:'Forest', template:'minimalis', color:'#15803d', color2:'#0f766e', headerFill:'solid', motif:'stripes', box:'accent', font:'Inter'},
+  {n:'Pastel Pop', template:'timeline', color:'#8b5cf6', color2:'#ec4899', headerFill:'gradient', motif:'zigzag', box:'pill', font:'Poppins'}
 ];
 const LABELS = {
   id:{summary:'Profil', experience:'Pengalaman Kerja', education:'Pendidikan', skills:'Keahlian', languages:'Bahasa',
@@ -404,7 +481,8 @@ const SECTIONS = {
 function blankState(){
   return {
     v:1,
-    design:{template:'modern', color:'#2563eb', font:'Inter', size:'13px', skillStyle:'bar', photo:'circle', lang:'id'},
+    design:{template:'modern', color:'#2563eb', color2:'#7c3aed', c2custom:false, headerFill:'plain', motif:'none', box:'flat',
+            font:'Inter', size:'13px', skillStyle:'bar', photo:'circle', lang:'id'},
     profile:{name:'',title:'',photo:'',email:'',phone:'',location:'',website:'',linkedin:'',summary:'',interests:''},
     experience:[], education:[], skills:[], languages:[], certs:[], projects:[],
     cloud:{code:''}
@@ -444,6 +522,40 @@ function hexRgb(h){ h=h.replace('#',''); if(h.length===3) h=h.split('').map(c=>c
 function lum(h){ return hexRgb(h).map(v=>{v/=255; return v<=.03928? v/12.92 : Math.pow((v+.055)/1.055,2.4);}).reduce((a,v,i)=>a+v*[.2126,.7152,.0722][i],0); }
 function rgba(h,a){ const [r,g,b]=hexRgb(h); return `rgba(${r},${g},${b},${a})`; }
 function mix(h, w){ const [r,g,b]=hexRgb(h); const m=x=>Math.round(x+(255-x)*w); return `rgb(${m(r)},${m(g)},${m(b)})`; }
+function hueShift(hex, deg){
+  let [r,g,b]=hexRgb(hex).map(v=>v/255); const mx=Math.max(r,g,b), mn=Math.min(r,g,b); let h=0,s=0; const l=(mx+mn)/2;
+  if(mx!==mn){ const d=mx-mn; s=l>.5? d/(2-mx-mn) : d/(mx+mn);
+    h = mx===r ? (g-b)/d+(g<b?6:0) : mx===g ? (b-r)/d+2 : (r-g)/d+4; h*=60; }
+  h=(h+deg+360)%360;
+  const f=n=>{ const k=(n+h/30)%12, a=s*Math.min(l,1-l); return Math.round(255*(l-a*Math.max(-1,Math.min(k-3,9-k,1)))); };
+  return '#'+[f(0),f(8),f(4)].map(v=>v.toString(16).padStart(2,'0')).join('');
+}
+const svgUrl = s => `url('data:image/svg+xml,${encodeURIComponent(s)}')`;
+
+/* Latar header: fill (bawaan/solid/gradasi) + motif. k = skala (1 = halaman, <1 = thumbnail) */
+function headerBg(d, tpl, k=1){
+  const c = d.color, c2 = d.color2 || hueShift(c,40);
+  const base = d.headerFill==='plain' && tpl==='eksekutif' ? '#0f172a' : c;
+  const fill = d.headerFill==='gradient' ? `linear-gradient(135deg, ${c} 0%, ${c2} 100%)` : base;
+  const light = d.headerFill==='gradient' ? (lum(c)+lum(c2))/2 > .5 : lum(base) > .5;
+  const ovc = light ? '15,23,42' : '255,255,255', ov = `rgba(${ovc},${light?.09:.16})`;
+  const px = v => Math.max(2, Math.round(v*k))+'px';
+  const fillCol = light ? '#0f172a' : '#ffffff', op = light ? .08 : .14;
+  const waveFill = tpl==='kartu' ? mix(c,.94) : '#ffffff';
+  const layers = {
+    none: [],
+    dots: [`radial-gradient(${ov} ${px(1.7)}, transparent ${px(2)}) 0 0/${px(14)} ${px(14)}`],
+    stripes: [`repeating-linear-gradient(-45deg, ${ov} 0 ${px(6)}, transparent ${px(6)} ${px(16)})`],
+    grid: [`linear-gradient(${ov} 1px, transparent 1px) 0 0/${px(18)} ${px(18)}`, `linear-gradient(90deg, ${ov} 1px, transparent 1px) 0 0/${px(18)} ${px(18)}`],
+    circles: [`radial-gradient(circle at 92% 12%, ${ov} 0 16%, transparent 16.4%)`, `radial-gradient(circle at 76% 115%, ${ov} 0 24%, transparent 24.4%)`, `radial-gradient(circle at 4% -10%, ${ov} 0 14%, transparent 14.4%)`],
+    geo: [`${svgUrl(`<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"><path d="M0 40L20 0L40 40Z" fill="${fillCol}" fill-opacity="${op}"/><path d="M20 0L40 40L40 0Z" fill="${fillCol}" fill-opacity="${op/2}"/></svg>`)} 0 0/${px(40)} ${px(40)}`],
+    zigzag: [`${svgUrl(`<svg xmlns="http://www.w3.org/2000/svg" width="40" height="20"><path d="M0 15L10 5L20 15L30 5L40 15" fill="none" stroke="${fillCol}" stroke-opacity="${op*1.6}" stroke-width="3"/></svg>`)} 0 0/${px(40)} ${px(20)}`],
+    waves: [
+      `${svgUrl(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0 70C200 120 400 20 600 60S1000 110 1200 50V120H0Z" fill="${waveFill}"/></svg>`)} bottom/100% ${px(34)} no-repeat`,
+      `${svgUrl(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0 40C250 100 450 0 700 50S1050 100 1200 30V120H0Z" fill="${waveFill}" fill-opacity=".35"/></svg>`)} bottom/100% ${px(48)} no-repeat`]
+  }[d.motif] || [];
+  return {bg: [...layers, fill].join(', '), on: light ? '#0f172a' : '#ffffff', ont: light ? 'rgba(15,23,42,.16)' : 'rgba(255,255,255,.28)'};
+}
 
 function load(){ try{ const s=JSON.parse(localStorage.getItem(LS_KEY)); return s && s.v ? merge(s) : null; }catch(_){ return null; } }
 function merge(s){ const b=blankState(); return {...b, ...s, design:{...b.design,...s.design}, profile:{...b.profile,...s.profile}, cloud:{...b.cloud,...(s.cloud||{})}}; }
@@ -493,8 +605,9 @@ function parts(d){
   const certs = filled(d.certs).map(x=>`<div class="item"><div class="ih"><span>${esc(x.name)}</span><span class="dt">${esc(x.year)}</span></div>${x.issuer?`<div class="im">${esc(x.issuer)}</div>`:''}</div>`).join('');
   const proj = filled(d.projects).map(x=>`<div class="item"><div class="ih"><span>${esc(x.name)}</span>${x.link?`<span class="dt">${esc(x.link)}</span>`:''}</div>${x.desc?`<div class="ds">${fmtDesc(x.desc)}</div>`:''}</div>`).join('');
   const intr = String(p.interests||'').split(',').map(s=>s.trim()).filter(Boolean);
+  const banner = d.design.headerFill!=='plain' || d.design.motif!=='none';
   return {
-    L,
+    L, hbc: banner ? 'hb' : '',
     photo: d.design.photo!=='none' && p.photo ? `<img class="ph ${d.design.photo}" src="${p.photo}" alt="">` : '',
     name: esc(p.name || 'Nama Lengkap'),
     title: p.title ? `<div class="jt">${esc(p.title)}</div>` : '',
@@ -508,46 +621,57 @@ function parts(d){
 
 const TPL = {
   modern(P){ const L=P.L; return `
-    <aside>${P.photo}
+    <aside class="hb">${P.photo}
       ${sec(L.contact,P.contactList)}${sec(L.skills,P.skills)}${sec(L.languages,P.langs)}${sec(L.interests,P.interests)}
     </aside>
     <main><header><h1 class="nm">${P.name}</h1>${P.title}</header>
       ${sec(L.summary,P.summary)}${sec(L.experience,P.exp)}${sec(L.education,P.edu)}${sec(L.projects,P.proj)}${sec(L.certs,P.certs)}
     </main>`; },
   klasik(P){ const L=P.L; return `
-    <header>${P.photo}<h1 class="nm">${P.name}</h1>${P.title}<div class="cline">${P.contactInline}</div></header>
+    <header class="${P.hbc}">${P.photo}<h1 class="nm">${P.name}</h1>${P.title}<div class="cline">${P.contactInline}</div></header>
     ${sec(L.summary,P.summary)}${sec(L.experience,P.exp)}${sec(L.education,P.edu)}${sec(L.skills,P.skills)}
     ${sec(L.projects,P.proj)}${sec(L.certs,P.certs)}${sec(L.languages,P.langs)}${sec(L.interests,P.interests)}`; },
   minimalis(P){ const L=P.L; const n=P.name.split(' '); const nm = n.length>1 ? `${n.slice(0,-1).join(' ')} <b>${n.slice(-1)}</b>` : `<b>${P.name}</b>`; return `
-    <header>${P.photo}<div><h1 class="nm">${nm}</h1>${P.title}<div class="accent"></div></div></header>
+    <header class="${P.hbc}">${P.photo}<div><h1 class="nm">${nm}</h1>${P.title}<div class="accent"></div></div></header>
     <div class="cols"><div>${sec(L.summary,P.summary)}${sec(L.experience,P.exp)}${sec(L.education,P.edu)}${sec(L.projects,P.proj)}</div>
       <div class="side">${sec(L.contact,P.contactList)}${sec(L.skills,P.skills)}${sec(L.languages,P.langs)}${sec(L.certs,P.certs)}${sec(L.interests,P.interests)}</div></div>`; },
   kreatif(P){ const L=P.L; return `
-    <header>${P.photo}<div><h1 class="nm">${P.name}</h1>${P.title}</div></header>
+    <header class="hb">${P.photo}<div><h1 class="nm">${P.name}</h1>${P.title}</div></header>
     ${P.contactInline?`<div class="cbar">${P.contactInline}</div>`:''}
     <div class="cols"><div class="mainc">${sec(L.summary,P.summary)}${sec(L.experience,P.exp)}${sec(L.education,P.edu)}${sec(L.projects,P.proj)}</div>
       <div>${sec(L.skills,P.skills)}${sec(L.languages,P.langs)}${sec(L.certs,P.certs)}${sec(L.interests,P.interests)}</div></div>`; },
   eksekutif(P){ const L=P.L; return `
-    <header>${P.photo}<div><h1 class="nm">${P.name}</h1>${P.title}</div></header>
+    <header class="hb">${P.photo}<div><h1 class="nm">${P.name}</h1>${P.title}</div></header>
     <div class="cols"><div class="mainc">${sec(L.summary,P.summary)}${sec(L.experience,P.exp)}${sec(L.education,P.edu)}${sec(L.projects,P.proj)}</div>
       <div class="side">${sec(L.contact,P.contactList)}${sec(L.skills,P.skills)}${sec(L.certs,P.certs)}${sec(L.languages,P.langs)}${sec(L.interests,P.interests)}</div></div>`; },
   timeline(P){ const L=P.L; return `
-    <header>${P.photo||'<span></span>'}<div><h1 class="nm">${P.name}</h1>${P.title}</div><div class="hc">${P.contactList}</div></header>
+    <header class="${P.hbc}">${P.photo||'<span></span>'}<div><h1 class="nm">${P.name}</h1>${P.title}</div><div class="hc">${P.contactList}</div></header>
     ${sec(L.summary,P.summary)}${sec(L.experience,P.exp?`<div class="tl">${P.exp}</div>`:'')}${sec(L.education,P.edu?`<div class="tl">${P.edu}</div>`:'')}
-    <div class="grid2"><div>${sec(L.skills,P.skills)}${sec(L.languages,P.langs)}</div><div>${sec(L.certs,P.certs)}${sec(L.projects,P.proj)}${sec(L.interests,P.interests)}</div></div>`; }
+    <div class="grid2"><div>${sec(L.skills,P.skills)}${sec(L.languages,P.langs)}</div><div>${sec(L.certs,P.certs)}${sec(L.projects,P.proj)}${sec(L.interests,P.interests)}</div></div>`; },
+  banner(P){ const L=P.L; return `
+    <header class="hb">${P.photo}<h1 class="nm">${P.name}</h1>${P.title}</header>
+    ${P.contactInline?`<div class="cline">${P.contactInline}</div>`:''}
+    <div class="cols"><div>${sec(L.summary,P.summary)}${sec(L.experience,P.exp)}${sec(L.education,P.edu)}${sec(L.projects,P.proj)}</div>
+      <div>${sec(L.skills,P.skills)}${sec(L.languages,P.langs)}${sec(L.certs,P.certs)}${sec(L.interests,P.interests)}</div></div>`; },
+  kartu(P){ const L=P.L; return `
+    <header class="hb">${P.photo}<div><h1 class="nm">${P.name}</h1>${P.title}</div></header>
+    <div class="cols"><div>${sec(L.summary,P.summary)}${sec(L.experience,P.exp)}${sec(L.education,P.edu)}${sec(L.projects,P.proj)}</div>
+      <div>${sec(L.contact,P.contactList)}${sec(L.skills,P.skills)}${sec(L.languages,P.langs)}${sec(L.certs,P.certs)}${sec(L.interests,P.interests)}</div></div>`; }
 };
 
+function cvVars(d, tpl){
+  const c = d.color || '#2563eb', light = lum(c) > 0.5, H = headerBg(d, tpl);
+  return {
+    '--c':c, '--on':light?'#0f172a':'#ffffff', '--ct':rgba(c,.13), '--ct2':rgba(c,.35), '--soft':rgba(c,.06),
+    '--ont':light?'rgba(15,23,42,.14)':'rgba(255,255,255,.22)', '--hl':lum(c)<.12?mix(c,.55):c,
+    '--hbg':H.bg, '--hon':H.on, '--hont':H.ont, '--pg':mix(c,.94),
+    '--font':`'${d.font}'`, '--fs':d.size
+  };
+}
 function renderCV(){
-  const d = state.design, c = d.color || '#2563eb';
-  const light = lum(c) > 0.5;
-  const vars = [
-    `--c:${c}`, `--on:${light?'#0f172a':'#ffffff'}`, `--ct:${rgba(c,.13)}`,
-    `--ont:${light?'rgba(15,23,42,.14)':'rgba(255,255,255,.22)'}`,
-    `--hl:${lum(c)<.12?mix(c,.55):c}`,
-    `--font:'${d.font}'`, `--fs:${d.size}`
-  ].join(';');
-  const tpl = TPL[d.template] ? d.template : 'modern';
-  $('#pageWrap').innerHTML = `<div class="cv t-${tpl}" id="cv" style="${vars}">${TPL[tpl](parts(state))}</div>`;
+  const d = state.design, tpl = TPL[d.template] ? d.template : 'modern';
+  $('#pageWrap').innerHTML = `<div class="cv t-${tpl} bx-${d.box||'flat'} m-${d.motif||'none'} f-${d.headerFill||'plain'}" id="cv">${TPL[tpl](parts(state))}</div>`;
+  const el = $('#cv'); Object.entries(cvVars(d,tpl)).forEach(([k,v])=>el.style.setProperty(k,v));
   fit();
 }
 
@@ -567,24 +691,45 @@ let renderT;
 function changed(){ clearTimeout(renderT); renderT = setTimeout(renderCV, 60); persist(); }
 
 /* ---------- Editor ---------- */
-function thumb(t, c){
-  const g='#e2e8f0', r=(x,y,w,h,bg)=>`<s style="left:${x}%;top:${y}%;width:${w}%;height:${h}%;background:${bg}"></s>`;
+function thumb(t, d){
+  const c=d.color, g='#e2e8f0', hb=headerBg(d,t,.3).bg, banner = BAND_TPL.includes(t) || d.headerFill!=='plain' || d.motif!=='none';
+  const r=(x,y,w,h,bg,ex='')=>`<s style="left:${x}%;top:${y}%;width:${w}%;height:${h}%;background:${bg};${ex}"></s>`;
   const lines=(x,y,n,w)=>Array.from({length:n},(_,i)=>r(x,y+i*9,w-(i%2)*12,4,g)).join('');
   switch(t){
-    case 'modern': return r(0,0,34,100,c)+r(8,8,18,16,'rgba(255,255,255,.6)')+r(42,8,40,7,'#334155')+lines(42,24,7,50);
-    case 'klasik': return r(30,8,40,7,'#334155')+r(10,22,80,2,c)+lines(10,30,7,80);
-    case 'minimalis': return r(8,8,40,8,'#334155')+r(8,19,12,3,c)+lines(8,32,6,52)+r(68,30,1,60,g)+lines(72,32,6,22);
-    case 'kreatif': return r(0,0,100,30,c)+r(8,8,40,7,'#fff')+lines(8,40,6,55)+lines(70,40,6,24);
-    case 'eksekutif': return r(0,0,100,26,'#0f172a')+r(0,26,100,4,c)+r(68,30,32,70,'#f1f5f9')+lines(8,38,6,52)+lines(72,38,6,22);
-    case 'timeline': return r(8,8,50,7,'#334155')+r(12,24,2,70,c)+lines(20,26,7,70);
+    case 'modern': return r(0,0,34,100,hb)+r(8,8,18,16,'rgba(255,255,255,.6)')+r(42,8,40,7,'#334155')+lines(42,24,7,50);
+    case 'klasik': return (banner? r(0,0,100,28,hb)+r(30,9,40,7,'#fff') : r(30,8,40,7,'#334155')+r(10,22,80,2,c))+lines(10,34,7,80);
+    case 'minimalis': return (banner? r(0,0,100,26,hb)+r(8,9,40,7,'#fff') : r(8,8,40,8,'#334155')+r(8,19,12,3,c))+lines(8,34,6,52)+r(68,32,1,60,g)+lines(72,34,6,22);
+    case 'kreatif': return r(0,0,100,30,hb)+r(8,10,40,7,'#fff')+lines(8,40,6,55)+lines(70,40,6,24);
+    case 'eksekutif': return r(0,0,100,26,hb)+r(0,26,100,4,c)+r(8,9,40,7,'#fff')+r(68,30,32,70,'#f1f5f9')+lines(8,38,6,52)+lines(72,38,6,22);
+    case 'timeline': return (banner? r(0,0,100,24,hb)+r(8,8,40,7,'#fff') : r(8,8,50,7,'#334155'))+r(12,30,2,64,c)+lines(20,32,7,70);
+    case 'banner': return r(0,0,100,34,hb)+r(41,5,18,14,'rgba(255,255,255,.7)','border-radius:50%')+r(30,23,40,5,'#fff')+lines(8,44,6,55)+lines(70,44,6,24);
+    case 'kartu': return r(0,0,100,100,mix(c,.94))+r(6,6,88,24,hb,'border-radius:6px')+r(14,14,36,6,'#fff')+r(6,36,56,58,'#fff','border-radius:5px')+r(66,36,28,58,'#fff','border-radius:5px')+lines(10,42,5,46);
   }
+}
+
+function boxPreview(b, c){
+  const base='left:6px;right:6px;height:12px;';
+  const st = {
+    flat:`border-bottom:2px solid ${rgba(c,.3)}`, rounded:`background:${rgba(c,.12)};border-radius:6px`,
+    outline:`border:1.5px solid ${rgba(c,.5)};border-radius:5px`, shadow:`background:#fff;border-radius:5px;box-shadow:0 2px 5px rgba(0,0,0,.18)`,
+    accent:`border-left:4px solid ${c};background:${rgba(c,.1)}`, pill:`background:${rgba(c,.12)};border-radius:99px`
+  }[b];
+  return `<i style="${base}top:7px;${st}"></i><i style="${base}top:23px;${st}"></i>`;
 }
 
 function renderDesignUI(){
   const d = state.design;
-  $('#tpls').innerHTML = TEMPLATES.map(t=>`<div class="tpl ${t.id===d.template?'on':''}" data-tpl="${t.id}"><div class="thumb">${thumb(t.id,d.color)}</div>${t.name}</div>`).join('');
+  $('#presets').innerHTML = PRESETS.map((p,i)=>{ const H=headerBg({...d,...p},p.template,.35);
+    const on = ['template','color','headerFill','motif','box'].every(k=>d[k]===p[k]);
+    return `<div class="chip ${on?'on':''}" data-preset="${i}"><div class="pvw" style="background:${H.bg}"></div>${p.n}</div>`; }).join('');
+  $('#tpls').innerHTML = TEMPLATES.map(t=>`<div class="tpl ${t.id===d.template?'on':''}" data-tpl="${t.id}"><div class="thumb">${thumb(t.id,d)}</div>${t.name}</div>`).join('');
   $('#swatches').innerHTML = COLORS.map(c=>`<button class="sw ${c.toLowerCase()===String(d.color).toLowerCase()?'on':''}" style="background:${c}" data-color="${c}" title="${c}"></button>`).join('');
+  $('#fillSeg').innerHTML = FILLS.map(([v,l])=>`<button data-opt="headerFill" data-val="${v}" class="${d.headerFill===v?'on':''}">${l}</button>`).join('');
+  $('#motifs').innerHTML = MOTIFS.map(([v,l])=>{ const H=headerBg({...d, motif:v, headerFill:d.headerFill==='plain'?'solid':d.headerFill}, d.template, .45);
+    return `<div class="chip ${d.motif===v?'on':''}" data-opt="motif" data-val="${v}"><div class="pvw" style="background:${H.bg}"></div>${l}</div>`; }).join('');
+  $('#boxes').innerHTML = BOXES.map(([v,l])=>`<div class="chip ${d.box===v?'on':''}" data-opt="box" data-val="${v}"><div class="pvw" style="background:#fff;border:1px solid #f1f5f9">${boxPreview(v,d.color)}</div>${l}</div>`).join('');
 }
+function syncDesignInputs(){ $$('[data-path^="design."]').forEach(el=>{ el.value = getPath(state, el.dataset.path) ?? ''; }); }
 
 function fieldHTML(sec, i, f, item){
   const a = `data-sec="${sec}" data-i="${i}" data-k="${f.k}"`, v = item[f.k];
@@ -629,7 +774,8 @@ function onEdit(e){
   const t = e.target;
   if(t.dataset.path){
     setPath(state, t.dataset.path, t.value);
-    if(t.dataset.path==='design.color') renderDesignUI();
+    if(t.dataset.path==='design.color'){ if(!state.design.c2custom){ state.design.color2 = hueShift(t.value,40); $('[data-path="design.color2"]').value = state.design.color2; } renderDesignUI(); }
+    if(t.dataset.path==='design.color2'){ state.design.c2custom = true; renderDesignUI(); }
   } else if(t.dataset.sec && t.dataset.k){
     const it = state[t.dataset.sec][+t.dataset.i], k = t.dataset.k;
     it[k] = t.type==='checkbox' ? t.checked : t.type==='range' ? +t.value : t.value;
@@ -643,12 +789,14 @@ editor.addEventListener('input', onEdit);
 editor.addEventListener('change', e => { if(e.target.tagName==='SELECT' || e.target.type==='checkbox') onEdit(e); });
 
 document.addEventListener('click', async e => {
-  const b = e.target.closest('button,[data-tpl]'); if(!b) return;
+  const b = e.target.closest('button,[data-tpl],[data-opt],[data-preset]'); if(!b) return;
   const ds = b.dataset;
   if(ds.tab){ $$('.tab').forEach(x=>x.classList.toggle('on', x===b)); $$('.pane').forEach(p=>p.classList.toggle('on', p.dataset.pane===ds.tab)); return; }
   if(ds.view){ $('#main').dataset.view = ds.view; $$('#mtabs button').forEach(x=>x.classList.toggle('on',x===b)); if(ds.view==='preview') requestAnimationFrame(fit); return; }
   if(ds.tpl){ state.design.template = ds.tpl; renderDesignUI(); changed(); return; }
-  if(ds.color){ state.design.color = ds.color; $('[data-path="design.color"]').value = ds.color; renderDesignUI(); changed(); return; }
+  if(ds.color){ state.design.color = ds.color; if(!state.design.c2custom) state.design.color2 = hueShift(ds.color,40); syncDesignInputs(); renderDesignUI(); changed(); return; }
+  if(ds.opt){ state.design[ds.opt] = ds.val; renderDesignUI(); changed(); return; }
+  if(ds.preset){ const {n, ...p} = PRESETS[+ds.preset]; Object.assign(state.design, p, {c2custom:true}); syncDesignInputs(); renderDesignUI(); changed(); toast('Tema "'+n+'" diterapkan'); return; }
   if(ds.add){ state[ds.add].push({...SECTIONS[ds.add].blank}); renderList(ds.add); changed();
     const cards = $$('#list-'+ds.add+' .card'); cards[cards.length-1]?.scrollIntoView({behavior:'smooth',block:'center'}); cards[cards.length-1]?.querySelector('input,textarea')?.focus({preventScroll:true}); return; }
   if(ds.mv){
