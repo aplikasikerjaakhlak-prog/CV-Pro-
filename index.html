@@ -1,0 +1,759 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CV Pro by itekno.id — Buat CV Profesional</title>
+<meta name="description" content="Buat CV profesional dengan template, warna, dan font sesuai seleramu. Unduh PDF gratis.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700;800&family=Lora:wght@400;500;600;700&family=Merriweather:wght@300;400;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============ APP ============ */
+:root{--bg:#eef2f7;--panel:#fff;--ink:#0f172a;--mut:#64748b;--line:#e2e8f0;--brand:#2563eb}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;font-family:Inter,system-ui,sans-serif;color:var(--ink);background:var(--bg);display:grid;grid-template-rows:56px 1fr;overflow:hidden}
+.topbar{display:flex;align-items:center;gap:8px;padding:0 16px;background:#0f172a;color:#fff}
+.brand{font-weight:800;font-size:17px;letter-spacing:-.01em;white-space:nowrap}
+.brand span{color:#60a5fa;font-weight:600;font-size:13px;margin-left:4px}
+.sp{flex:1}
+.btn{border:1px solid var(--line);background:#fff;color:var(--ink);padding:8px 12px;border-radius:8px;font:600 13px Inter,sans-serif;cursor:pointer;display:inline-flex;gap:6px;align-items:center;white-space:nowrap}
+.btn:hover{filter:brightness(.97)}
+.btn.pri{background:var(--brand);border-color:var(--brand);color:#fff}
+.btn.ghost{background:transparent;color:#cbd5e1;border-color:#334155}
+.btn.block{width:100%;justify-content:center;margin-bottom:8px}
+.btn.dashed{border-style:dashed;width:100%;justify-content:center;color:var(--brand);background:#f8fbff}
+.btn.danger{color:#dc2626}
+.main{display:grid;grid-template-columns:460px 1fr;min-height:0}
+.editor{background:var(--panel);border-right:1px solid var(--line);display:flex;flex-direction:column;min-height:0}
+.tabs{display:flex;overflow-x:auto;border-bottom:1px solid var(--line);padding:0 8px;flex-shrink:0;scrollbar-width:none}
+.tab{padding:13px 10px;font:600 13px Inter,sans-serif;color:var(--mut);border:0;background:none;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap}
+.tab.on{color:var(--brand);border-color:var(--brand)}
+.pane{display:none;padding:18px;overflow-y:auto;flex:1}
+.pane.on{display:block}
+.f{display:block;margin-bottom:12px;font-size:12px;font-weight:600;color:#334155}
+.f input:not([type=checkbox]),.f textarea,.f select{display:block;width:100%;margin-top:5px;padding:9px 10px;border:1px solid var(--line);border-radius:8px;font:400 14px Inter,sans-serif;color:var(--ink);background:#fff}
+.f input[type=color]{height:40px;padding:3px}
+.f input[type=range]{padding:0;border:0;accent-color:var(--brand)}
+textarea{resize:vertical;min-height:84px;line-height:1.45}
+input:focus,textarea:focus,select:focus{outline:2px solid #bfdbfe;border-color:var(--brand)!important}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.h{font-size:12px;font-weight:700;margin:6px 0 10px;text-transform:uppercase;letter-spacing:.06em;color:var(--mut)}
+.hint{font-size:11.5px;color:var(--mut);font-weight:400;margin-top:4px}
+.card{border:1px solid var(--line);border-radius:10px;padding:12px;margin-bottom:12px;background:#fafcff}
+.card-h{display:flex;align-items:center;gap:6px;margin-bottom:10px;font-weight:700;font-size:13px}
+.card-h .t{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ib{border:1px solid var(--line);background:#fff;width:28px;height:28px;border-radius:6px;cursor:pointer;font-size:13px;color:var(--mut)}
+.ib:hover{color:var(--ink)}
+.chk{display:flex;gap:8px;align-items:center;font-size:13px;margin:-2px 0 12px;font-weight:500}
+.tpls{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px}
+.tpl{border:2px solid var(--line);border-radius:10px;padding:6px;cursor:pointer;background:#fff;text-align:center;font:600 12px Inter,sans-serif;color:#334155}
+.tpl.on{border-color:var(--brand);box-shadow:0 0 0 3px #dbeafe;color:var(--brand)}
+.thumb{height:88px;border-radius:5px;margin-bottom:6px;background:#fff;position:relative;overflow:hidden;border:1px solid #f1f5f9}
+.thumb s{position:absolute;display:block;border-radius:2px}
+.swatches{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.sw{width:30px;height:30px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 1px var(--line);cursor:pointer;padding:0}
+.sw.on{box-shadow:0 0 0 2px var(--ink)}
+.photo-box{display:flex;gap:14px;align-items:center;margin-bottom:16px}
+.photo-box .pv{width:76px;height:76px;border-radius:50%;object-fit:cover;background:#e2e8f0 center/40% no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2'%3E%3Ccircle cx='12' cy='8' r='4'/%3E%3Cpath d='M4 21c0-4 4-6 8-6s8 2 8 6'/%3E%3C/svg%3E");flex-shrink:0}
+.note{font-size:12.5px;color:#475569;background:#f8fafc;border:1px dashed #cbd5e1;padding:10px 12px;border-radius:8px;margin-bottom:14px;line-height:1.5}
+.code-badge{font:700 18px ui-monospace,monospace;letter-spacing:.12em;background:#eff6ff;color:var(--brand);padding:10px;border-radius:8px;text-align:center;margin-bottom:12px}
+hr.s{border:0;border-top:1px solid var(--line);margin:18px 0}
+.preview{overflow:auto;padding:28px 20px 60px;min-height:0;position:relative}
+.scaler{margin:0 auto;position:relative}
+.page-wrap{transform-origin:top left;width:794px;position:absolute;top:0;left:0}
+.guides{position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(to bottom,transparent 0 1121px,rgba(239,68,68,.55) 1121px 1123px)}
+.mtabs{display:none}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(30px);background:#0f172a;color:#fff;padding:11px 16px;border-radius:10px;font-size:13.5px;opacity:0;transition:.25s;z-index:99;max-width:90vw;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+dialog{border:0;border-radius:14px;padding:22px;max-width:420px;width:92vw;box-shadow:0 20px 50px rgba(0,0,0,.25)}
+dialog::backdrop{background:rgba(15,23,42,.5)}
+dialog h3{margin:0 0 10px}
+dialog ol{padding-left:18px;font-size:14px;line-height:1.6;color:#334155}
+@media(max-width:900px){
+  body{grid-template-rows:56px 1fr 52px}
+  .main{grid-template-columns:1fr}
+  .editor,.preview{display:none}
+  .main[data-view=edit] .editor{display:flex}
+  .main[data-view=preview] .preview{display:block}
+  .mtabs{display:flex;background:#fff;border-top:1px solid var(--line)}
+  .mtabs button{flex:1;border:0;background:none;font:600 14px Inter,sans-serif;color:var(--mut)}
+  .mtabs button.on{color:var(--brand)}
+  .topbar .hide-m{display:none}
+  .brand span{display:none}
+}
+
+/* ============ CV (shared) ============ */
+.cv{width:210mm;min-height:297mm;background:#fff;color:#1e293b;font-family:var(--font),sans-serif;font-size:var(--fs);line-height:1.5;-webkit-print-color-adjust:exact;print-color-adjust:exact;box-shadow:0 10px 30px rgba(15,23,42,.14);overflow:hidden}
+.cv *{box-sizing:border-box}
+.cv .nm{margin:0;font-size:2.35em;line-height:1.1;font-weight:800;letter-spacing:-.01em}
+.cv .jt{font-size:1.12em;color:var(--c);font-weight:600;margin-top:5px}
+.cv .st{font-size:.9em;text-transform:uppercase;letter-spacing:.12em;color:var(--c);margin:0 0 9px;font-weight:700}
+.cv .sec{margin-bottom:6mm}
+.cv .item{margin-bottom:3.6mm;break-inside:avoid}
+.cv .ih{display:flex;justify-content:space-between;gap:10px;font-weight:700;align-items:baseline}
+.cv .im{color:#64748b;font-size:.93em}
+.cv .dt{font-size:.85em;color:#64748b;white-space:nowrap;font-weight:500}
+.cv .ds{margin-top:2px}
+.cv .ds p{margin:3px 0}
+.cv .ds ul{margin:3px 0;padding-left:17px}
+.cv .ds li{margin:1px 0}
+.cv .ph{object-fit:cover;display:block}
+.cv .ph.circle{border-radius:50%}.cv .ph.rounded{border-radius:16px}.cv .ph.square{border-radius:0}
+.cv .ci{display:flex;gap:8px;align-items:flex-start;margin-bottom:5px;overflow-wrap:anywhere;font-size:.92em}
+.cv svg.ic{width:13px;height:13px;flex-shrink:0;margin-top:.3em;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.cv .sk{margin-bottom:7px;break-inside:avoid}
+.cv .bar{height:5px;border-radius:3px;background:var(--ct);margin-top:3px}
+.cv .bar i{display:block;height:100%;border-radius:3px;background:var(--c)}
+.cv .dotrow{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.cv .dots{white-space:nowrap}
+.cv .dots i{display:inline-block;width:8px;height:8px;border-radius:50%;border:1.5px solid var(--c);margin-left:3px}
+.cv .dots i.f{background:var(--c)}
+.cv .tags{display:flex;flex-wrap:wrap;gap:6px}
+.cv .tag{padding:2px 10px;border-radius:999px;background:var(--ct);color:var(--c);font-size:.86em;font-weight:600}
+.cv .lg{display:flex;justify-content:space-between;gap:8px;margin-bottom:5px}
+.cv .lg .im{font-size:.88em}
+.cv a{color:inherit;text-decoration:none}
+
+/* Modern */
+.t-modern{display:grid;grid-template-columns:70mm 1fr;background:linear-gradient(90deg,var(--c) 70mm,#fff 70mm)}
+.t-modern aside{padding:13mm 8mm;color:var(--on);--c:var(--on);--ct:var(--ont)}
+.t-modern aside .ph{width:40mm;height:40mm;margin:0 auto 8mm;border:3px solid var(--ont)}
+.t-modern aside .im,.t-modern aside .dt{color:inherit;opacity:.8}
+.t-modern aside .st{border-bottom:1px solid var(--ont);padding-bottom:4px}
+.t-modern main{padding:13mm 11mm}
+.t-modern header{margin-bottom:8mm}
+.t-modern main .st{border-bottom:2px solid var(--ct);padding-bottom:4px}
+
+/* Klasik */
+.t-klasik{padding:14mm 16mm;font-family:var(--font),serif}
+.t-klasik header{text-align:center;border-bottom:2px solid var(--c);padding-bottom:6mm;margin-bottom:5mm}
+.t-klasik .ph{width:30mm;height:30mm;margin:0 auto 4mm}
+.t-klasik .nm{letter-spacing:.05em;text-transform:uppercase;font-size:2.05em}
+.t-klasik .cline{display:flex;flex-wrap:wrap;justify-content:center;gap:3px 16px;margin-top:9px;font-size:.9em;color:#475569}
+.t-klasik .cline span{display:inline-flex;gap:5px;align-items:flex-start}
+.t-klasik .sec{display:grid;grid-template-columns:36mm 1fr;gap:6mm;border-top:1px solid #e2e8f0;padding-top:4mm;margin-bottom:4mm}
+.t-klasik .sec:first-of-type{border-top:0;padding-top:0}
+.t-klasik .st{margin:0;font-size:.85em}
+
+/* Minimalis */
+.t-minimalis{padding:16mm 14mm}
+.t-minimalis header{display:flex;gap:8mm;align-items:center;margin-bottom:9mm}
+.t-minimalis .ph{width:30mm;height:30mm;flex-shrink:0}
+.t-minimalis .nm{font-weight:300;font-size:2.6em}
+.t-minimalis .nm b{font-weight:800}
+.t-minimalis .accent{width:16mm;height:4px;background:var(--c);margin:10px 0 0;border-radius:2px}
+.t-minimalis .cols{display:grid;grid-template-columns:1fr 56mm;gap:9mm}
+.t-minimalis .side{border-left:1px solid #e2e8f0;padding-left:7mm}
+.t-minimalis .st{color:#0f172a;letter-spacing:.2em;font-size:.8em}
+.t-minimalis .st::after{content:"";display:block;width:8mm;height:2px;background:var(--c);margin-top:5px}
+
+/* Kreatif */
+.t-kreatif header{background:var(--c);color:var(--on);padding:12mm 14mm;display:flex;gap:8mm;align-items:center}
+.t-kreatif header .jt{color:var(--on);opacity:.92}
+.t-kreatif .ph{width:34mm;height:34mm;border:4px solid var(--ont);flex-shrink:0}
+.t-kreatif .cbar{background:var(--ct);padding:3.5mm 14mm;display:flex;flex-wrap:wrap;gap:3px 18px;font-size:.88em}
+.t-kreatif .cbar span{display:inline-flex;gap:6px;align-items:flex-start}
+.t-kreatif .cbar svg{color:var(--c)}
+.t-kreatif .cols{display:grid;grid-template-columns:1fr 58mm;gap:9mm;padding:9mm 14mm}
+.t-kreatif .st{display:inline-block;background:var(--c);color:var(--on);padding:3px 11px;border-radius:5px;letter-spacing:.08em;font-size:.82em}
+.t-kreatif .mainc .item{border-left:2px solid var(--ct);padding-left:10px}
+
+/* Eksekutif */
+.t-eksekutif header{background:#0f172a;color:#fff;padding:12mm 14mm 10mm;border-bottom:5px solid var(--c);display:flex;gap:8mm;align-items:center}
+.t-eksekutif .ph{width:32mm;height:32mm;flex-shrink:0;border:3px solid var(--c)}
+.t-eksekutif .jt{color:var(--hl)}
+.t-eksekutif .cols{display:grid;grid-template-columns:1fr 62mm;background:linear-gradient(90deg,#fff calc(100% - 62mm),#f1f5f9 0);min-height:calc(297mm - 55mm)}
+.t-eksekutif .mainc{padding:9mm 9mm 9mm 14mm}
+.t-eksekutif .side{padding:9mm 9mm}
+.t-eksekutif .st{color:#0f172a;border-bottom:2px solid var(--c);padding-bottom:4px}
+.t-eksekutif .side .ci svg{color:var(--c)}
+
+/* Timeline */
+.t-timeline{padding:14mm 15mm}
+.t-timeline header{display:grid;grid-template-columns:auto 1fr auto;gap:7mm;align-items:center;padding-bottom:7mm;margin-bottom:7mm;border-bottom:1px solid #e2e8f0}
+.t-timeline .ph{width:28mm;height:28mm}
+.t-timeline .hc{font-size:.88em;color:#475569;min-width:52mm}
+.t-timeline .hc svg{color:var(--c)}
+.t-timeline .st{display:flex;align-items:center;gap:8px}
+.t-timeline .st::before{content:"";width:10px;height:10px;border-radius:3px;background:var(--c)}
+.t-timeline .tl{border-left:2px solid var(--ct);margin-left:4px;padding-left:14px}
+.t-timeline .tl .item{position:relative}
+.t-timeline .tl .item::before{content:"";position:absolute;left:-20px;top:.35em;width:10px;height:10px;border-radius:50%;background:#fff;border:2px solid var(--c)}
+.t-timeline .grid2{display:grid;grid-template-columns:1fr 1fr;gap:8mm}
+
+/* ============ PRINT ============ */
+@media print{
+  @page{size:A4;margin:0}
+  html,body{height:auto;overflow:visible;display:block;background:#fff}
+  .topbar,.editor,.mtabs,.guides,.toast,dialog{display:none!important}
+  .main{display:block!important}
+  .preview{display:block!important;padding:0;overflow:visible}
+  .scaler{width:auto!important;height:auto!important}
+  .page-wrap{position:static;transform:none!important}
+  .cv{box-shadow:none}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">CV Pro<span>by itekno.id</span></div>
+  <div class="sp"></div>
+  <button class="btn ghost hide-m" data-act="sample">Isi contoh</button>
+  <button class="btn pri" data-act="pdf">⬇ Unduh PDF</button>
+</div>
+
+<div class="main" id="main" data-view="edit">
+  <div class="editor" id="editor">
+    <div class="tabs" id="tabs">
+      <button class="tab on" data-tab="desain">🎨 Desain</button>
+      <button class="tab" data-tab="profil">Profil</button>
+      <button class="tab" data-tab="pengalaman">Pengalaman</button>
+      <button class="tab" data-tab="pendidikan">Pendidikan</button>
+      <button class="tab" data-tab="keahlian">Keahlian</button>
+      <button class="tab" data-tab="lainnya">Lainnya</button>
+      <button class="tab" data-tab="simpan">💾 Simpan</button>
+    </div>
+
+    <div class="pane on" data-pane="desain">
+      <div class="h">Template</div>
+      <div class="tpls" id="tpls"></div>
+      <div class="h">Warna aksen</div>
+      <div class="swatches" id="swatches"></div>
+      <label class="f">Warna kustom <input type="color" data-path="design.color"></label>
+      <div class="row">
+        <label class="f">Font
+          <select data-path="design.font">
+            <option>Inter</option><option>Poppins</option><option>Montserrat</option>
+            <option>Lora</option><option>Merriweather</option><option>Playfair Display</option>
+          </select></label>
+        <label class="f">Ukuran teks
+          <select data-path="design.size">
+            <option value="12px">Kecil</option><option value="13px">Normal</option><option value="14px">Besar</option>
+          </select></label>
+      </div>
+      <div class="row">
+        <label class="f">Tampilan keahlian
+          <select data-path="design.skillStyle">
+            <option value="bar">Bar</option><option value="dot">Titik</option><option value="tag">Label</option>
+          </select></label>
+        <label class="f">Bentuk foto
+          <select data-path="design.photo">
+            <option value="circle">Bulat</option><option value="rounded">Sudut tumpul</option>
+            <option value="square">Kotak</option><option value="none">Tanpa foto</option>
+          </select></label>
+      </div>
+      <label class="f">Bahasa judul bagian CV
+        <select data-path="design.lang"><option value="id">Bahasa Indonesia</option><option value="en">English</option></select>
+        <div class="hint">Mengubah judul seperti "Pengalaman Kerja" ↔ "Work Experience".</div>
+      </label>
+    </div>
+
+    <div class="pane" data-pane="profil">
+      <div class="photo-box">
+        <img class="pv" id="photoPv" alt="">
+        <div>
+          <button class="btn" data-act="photo">Unggah foto</button>
+          <button class="btn danger" data-act="photo-del">Hapus</button>
+          <div class="hint">Foto otomatis diperkecil. Gunakan foto formal.</div>
+          <input type="file" id="photoIn" accept="image/*" hidden>
+        </div>
+      </div>
+      <label class="f">Nama lengkap <input data-path="profile.name" placeholder="Rizky Pratama"></label>
+      <label class="f">Posisi / jabatan <input data-path="profile.title" placeholder="Network Engineer"></label>
+      <div class="row">
+        <label class="f">Email <input data-path="profile.email" type="email" placeholder="nama@email.com"></label>
+        <label class="f">Telepon / WA <input data-path="profile.phone" placeholder="0812-xxxx-xxxx"></label>
+      </div>
+      <div class="row">
+        <label class="f">Domisili <input data-path="profile.location" placeholder="Jakarta, Indonesia"></label>
+        <label class="f">Website / Portofolio <input data-path="profile.website" placeholder="namaku.com"></label>
+      </div>
+      <label class="f">LinkedIn <input data-path="profile.linkedin" placeholder="linkedin.com/in/namaku"></label>
+      <label class="f">Ringkasan profil <textarea data-path="profile.summary" rows="5" placeholder="2–4 kalimat tentang keahlian utama, pengalaman, dan tujuan kariermu."></textarea></label>
+      <label class="f">Minat (pisahkan dengan koma) <input data-path="profile.interests" placeholder="Fotografi, Open source, Lari"></label>
+    </div>
+
+    <div class="pane" data-pane="pengalaman">
+      <div class="note">Tulis poin pencapaian di deskripsi dengan awalan <b>-</b> di tiap baris supaya tampil sebagai bullet. Urutkan dari yang terbaru.</div>
+      <div id="list-experience"></div>
+      <button class="btn dashed" data-add="experience">+ Tambah pengalaman</button>
+    </div>
+
+    <div class="pane" data-pane="pendidikan">
+      <div id="list-education"></div>
+      <button class="btn dashed" data-add="education">+ Tambah pendidikan</button>
+    </div>
+
+    <div class="pane" data-pane="keahlian">
+      <div class="h">Keahlian</div>
+      <div id="list-skills"></div>
+      <button class="btn dashed" data-add="skills">+ Tambah keahlian</button>
+      <hr class="s">
+      <div class="h">Bahasa</div>
+      <div id="list-languages"></div>
+      <button class="btn dashed" data-add="languages">+ Tambah bahasa</button>
+    </div>
+
+    <div class="pane" data-pane="lainnya">
+      <div class="h">Sertifikasi</div>
+      <div id="list-certs"></div>
+      <button class="btn dashed" data-add="certs">+ Tambah sertifikat</button>
+      <hr class="s">
+      <div class="h">Proyek</div>
+      <div id="list-projects"></div>
+      <button class="btn dashed" data-add="projects">+ Tambah proyek</button>
+    </div>
+
+    <div class="pane" data-pane="simpan">
+      <div class="note">CV kamu tersimpan otomatis di browser ini. Simpan ke <b>cloud</b> supaya bisa dibuka di HP/laptop lain dengan <b>Kode CV + PIN</b>.</div>
+      <div id="codeBox"></div>
+      <div class="row">
+        <label class="f">PIN (4–8 angka) <input id="pinIn" type="password" inputmode="numeric" maxlength="8" placeholder="••••"></label>
+        <label class="f">Email (opsional) <input id="mailIn" type="email" placeholder="untuk catatan"></label>
+      </div>
+      <button class="btn pri block" data-act="cloud-save">☁ Simpan ke Cloud</button>
+      <hr class="s">
+      <div class="h">Buka CV dari cloud</div>
+      <div class="row">
+        <label class="f">Kode CV <input id="loadCode" placeholder="ABCD2345" style="text-transform:uppercase"></label>
+        <label class="f">PIN <input id="loadPin" type="password" inputmode="numeric" maxlength="8"></label>
+      </div>
+      <button class="btn block" data-act="cloud-load">Buka CV</button>
+      <hr class="s">
+      <div class="h">Cadangan file</div>
+      <div class="row">
+        <button class="btn block" data-act="export">⬇ Unduh .json</button>
+        <button class="btn block" data-act="import">⬆ Impor .json</button>
+      </div>
+      <input type="file" id="importIn" accept=".json,application/json" hidden>
+      <button class="btn block danger" data-act="reset">Kosongkan semua isi</button>
+    </div>
+  </div>
+
+  <div class="preview" id="preview">
+    <div class="scaler" id="scaler">
+      <div class="page-wrap" id="pageWrap"></div>
+      <div class="guides" title="Garis merah = batas halaman A4"></div>
+    </div>
+  </div>
+</div>
+
+<div class="mtabs" id="mtabs">
+  <button class="on" data-view="edit">✏️ Edit</button>
+  <button data-view="preview">👁 Pratinjau</button>
+</div>
+
+<dialog id="pdfDlg">
+  <h3>Unduh sebagai PDF</h3>
+  <ol>
+    <li>Di jendela cetak, pilih tujuan <b>"Simpan sebagai PDF"</b>.</li>
+    <li>Ukuran kertas <b>A4</b>, margin <b>Tidak ada / None</b>.</li>
+    <li>Centang <b>Grafis latar belakang</b>, matikan header &amp; footer.</li>
+  </ol>
+  <label class="chk"><input type="checkbox" id="pdfNoMore"> Jangan tampilkan lagi</label>
+  <button class="btn pri block" data-act="pdf-go">Lanjut cetak</button>
+</dialog>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ==========================================================
+   KONFIGURASI — tempel URL Web App Google Apps Script di sini
+   (Deploy > New deployment > Web app > Copy URL .../exec)
+   ========================================================== */
+const API_URL = 'https://script.google.com/macros/s/AKfycbxQZCrfEgpbQHrOrsPfnTMVxciuRZ-n7eEK2_As1I1rEDZWPg3JxU7yUbadJhmu0_6vbw/exec';
+
+const LS_KEY = 'cvpro_v1';
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+
+const COLORS = ['#2563eb','#0f766e','#16a34a','#7c3aed','#db2777','#dc2626','#ea580c','#ca8a04','#0f172a','#475569','#0e7490','#9f1239'];
+const TEMPLATES = [
+  {id:'modern', name:'Modern'}, {id:'klasik', name:'Klasik'}, {id:'minimalis', name:'Minimalis'},
+  {id:'kreatif', name:'Kreatif'}, {id:'eksekutif', name:'Eksekutif'}, {id:'timeline', name:'Timeline'}
+];
+const LABELS = {
+  id:{summary:'Profil', experience:'Pengalaman Kerja', education:'Pendidikan', skills:'Keahlian', languages:'Bahasa',
+      certs:'Sertifikasi', projects:'Proyek', contact:'Kontak', interests:'Minat', present:'Sekarang', score:'Nilai'},
+  en:{summary:'Profile', experience:'Work Experience', education:'Education', skills:'Skills', languages:'Languages',
+      certs:'Certifications', projects:'Projects', contact:'Contact', interests:'Interests', present:'Present', score:'GPA'}
+};
+const LANG_LEVELS = ['Penutur asli','Fasih','Mahir','Menengah','Dasar'];
+
+const SECTIONS = {
+  experience:{label:'Pengalaman', titleKey:'role', blank:{role:'',company:'',location:'',start:'',end:'',current:false,desc:''},
+    fields:[{k:'role',l:'Posisi'},{k:'company',l:'Perusahaan'},{k:'location',l:'Lokasi',full:1},
+      {k:'start',l:'Mulai',ph:'Jan 2022'},{k:'end',l:'Selesai',ph:'Des 2024'},{k:'current',l:'Masih bekerja di sini',t:'check'},
+      {k:'desc',l:'Deskripsi / pencapaian',t:'area',ph:'- Mengelola 200+ perangkat jaringan\n- Menurunkan downtime 30%'}]},
+  education:{label:'Pendidikan', titleKey:'school', blank:{degree:'',school:'',location:'',start:'',end:'',score:'',desc:''},
+    fields:[{k:'school',l:'Institusi',full:1},{k:'degree',l:'Gelar / Jurusan',full:1},{k:'start',l:'Mulai',ph:'2016'},{k:'end',l:'Lulus',ph:'2020'},
+      {k:'location',l:'Lokasi'},{k:'score',l:'IPK / Nilai',ph:'3.65 / 4.00'},{k:'desc',l:'Keterangan (opsional)',t:'area'}]},
+  skills:{label:'Keahlian', titleKey:'name', blank:{name:'',level:4},
+    fields:[{k:'name',l:'Keahlian',full:1},{k:'level',l:'Level (1–5)',t:'range',full:1}]},
+  languages:{label:'Bahasa', titleKey:'name', blank:{name:'',level:'Mahir'},
+    fields:[{k:'name',l:'Bahasa'},{k:'level',l:'Tingkat',t:'select',opts:LANG_LEVELS}]},
+  certs:{label:'Sertifikat', titleKey:'name', blank:{name:'',issuer:'',year:''},
+    fields:[{k:'name',l:'Nama sertifikat',full:1},{k:'issuer',l:'Penerbit'},{k:'year',l:'Tahun'}]},
+  projects:{label:'Proyek', titleKey:'name', blank:{name:'',link:'',desc:''},
+    fields:[{k:'name',l:'Nama proyek'},{k:'link',l:'Link (opsional)'},{k:'desc',l:'Deskripsi',t:'area'}]}
+};
+
+function blankState(){
+  return {
+    v:1,
+    design:{template:'modern', color:'#2563eb', font:'Inter', size:'13px', skillStyle:'bar', photo:'circle', lang:'id'},
+    profile:{name:'',title:'',photo:'',email:'',phone:'',location:'',website:'',linkedin:'',summary:'',interests:''},
+    experience:[], education:[], skills:[], languages:[], certs:[], projects:[],
+    cloud:{code:''}
+  };
+}
+
+function sampleState(){
+  const s = blankState();
+  Object.assign(s.profile, {
+    name:'Rizky Pratama', title:'Network Engineer', email:'rizky.pratama@email.com', phone:'0812-3456-7890',
+    location:'Jakarta, Indonesia', website:'rizkypratama.dev', linkedin:'linkedin.com/in/rizkypratama',
+    summary:'Network engineer dengan 6 tahun pengalaman merancang, mengoperasikan, dan memantau jaringan enterprise skala nasional. Terbiasa dengan routing & switching Cisco, monitoring SolarWinds, serta otomasi berbasis Python untuk mempercepat troubleshooting.',
+    interests:'Otomasi jaringan, Fotografi, Lari pagi'
+  });
+  s.experience = [
+    {role:'Senior Network Engineer', company:'PT Nusantara Data', location:'Jakarta', start:'Mar 2022', end:'', current:true,
+     desc:'- Mengelola 350+ perangkat jaringan di 40 kantor cabang\n- Membangun dashboard monitoring dan notifikasi otomatis, menurunkan waktu respons insiden 45%\n- Memimpin migrasi WAN ke SD-WAN tanpa downtime layanan'},
+    {role:'Network Engineer', company:'PT Telekomunikasi Andalan', location:'Bandung', start:'Jul 2019', end:'Feb 2022', current:false,
+     desc:'- Instalasi dan konfigurasi GPON/OLT untuk 2.000+ pelanggan korporat\n- Menyusun SOP troubleshooting yang dipakai tim NOC'}
+  ];
+  s.education = [{school:'Universitas Indonesia', degree:'S1 Teknik Komputer', location:'Depok', start:'2015', end:'2019', score:'3.62 / 4.00', desc:''}];
+  s.skills = [{name:'Routing & Switching (Cisco)',level:5},{name:'Network Monitoring (SolarWinds)',level:5},{name:'Python Automation',level:4},{name:'Linux Server',level:4},{name:'Firewall & VPN',level:3}];
+  s.languages = [{name:'Indonesia',level:'Penutur asli'},{name:'Inggris',level:'Mahir'}];
+  s.certs = [{name:'Cisco CCNA',issuer:'Cisco',year:'2021'},{name:'Mikrotik MTCNA',issuer:'Mikrotik',year:'2019'}];
+  s.projects = [{name:'Pipeline Alert Jaringan',link:'github.com/rizky/alert',desc:'Notifikasi node down real-time ke aplikasi mobile tim NOC.'}];
+  return s;
+}
+
+let state = load() || blankState();
+
+/* ---------- utils ---------- */
+function esc(v){ return String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function getPath(o,p){ return p.split('.').reduce((a,k)=>a?.[k], o); }
+function setPath(o,p,v){ const ks=p.split('.'); const last=ks.pop(); ks.reduce((a,k)=>a[k], o)[last]=v; }
+function toast(msg, ms=2600){ const t=$('#toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove('show'), ms); }
+function hexRgb(h){ h=h.replace('#',''); if(h.length===3) h=h.split('').map(c=>c+c).join(''); const n=parseInt(h,16); return [n>>16&255,n>>8&255,n&255]; }
+function lum(h){ return hexRgb(h).map(v=>{v/=255; return v<=.03928? v/12.92 : Math.pow((v+.055)/1.055,2.4);}).reduce((a,v,i)=>a+v*[.2126,.7152,.0722][i],0); }
+function rgba(h,a){ const [r,g,b]=hexRgb(h); return `rgba(${r},${g},${b},${a})`; }
+function mix(h, w){ const [r,g,b]=hexRgb(h); const m=x=>Math.round(x+(255-x)*w); return `rgb(${m(r)},${m(g)},${m(b)})`; }
+
+function load(){ try{ const s=JSON.parse(localStorage.getItem(LS_KEY)); return s && s.v ? merge(s) : null; }catch(_){ return null; } }
+function merge(s){ const b=blankState(); return {...b, ...s, design:{...b.design,...s.design}, profile:{...b.profile,...s.profile}, cloud:{...b.cloud,...(s.cloud||{})}}; }
+let saveT;
+function persist(){ clearTimeout(saveT); saveT=setTimeout(()=>{ try{ localStorage.setItem(LS_KEY, JSON.stringify(state)); }catch(e){ toast('Penyimpanan browser penuh. Coba perkecil foto.'); } }, 300); }
+
+/* ---------- CV rendering ---------- */
+const IC = {
+  mail:'<rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/>',
+  phone:'<path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/>',
+  pin:'<path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/>',
+  web:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>',
+  in:'<rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/>'
+};
+const ic = k => `<svg class="ic" viewBox="0 0 24 24">${IC[k]}</svg>`;
+
+function fmtDesc(t){
+  const lines = String(t||'').split('\n').map(l=>l.trim()).filter(Boolean);
+  let out='', ul=[];
+  const flush=()=>{ if(ul.length){ out+='<ul>'+ul.map(x=>`<li>${esc(x)}</li>`).join('')+'</ul>'; ul=[]; } };
+  for(const l of lines){ const m=l.match(/^[-•*]\s*(.*)$/); if(m) ul.push(m[1]); else { flush(); out+=`<p>${esc(l)}</p>`; } }
+  flush(); return out;
+}
+const dateRange = (a,b,cur,L) => { const e = cur ? L.present : b; return a && e ? `${esc(a)} – ${esc(e)}` : esc(a||e||''); };
+const sec = (title, body, cls='') => body ? `<section class="sec ${cls}"><h3 class="st">${title}</h3><div>${body}</div></section>` : '';
+const filled = arr => arr.filter(x => Object.entries(x).some(([k,v]) => k!=='level' && k!=='current' && String(v).trim()));
+
+function parts(d){
+  const L = LABELS[d.design.lang] || LABELS.id, p = d.profile, st = d.design.skillStyle;
+  const contacts = [['mail',p.email],['phone',p.phone],['pin',p.location],['web',p.website],['in',p.linkedin]].filter(c=>c[1]);
+  const exp = filled(d.experience).map(x=>`<div class="item">
+      <div class="ih"><span>${esc(x.role)}</span><span class="dt">${dateRange(x.start,x.end,x.current,L)}</span></div>
+      <div class="im">${esc([x.company,x.location].filter(Boolean).join(' · '))}</div>
+      ${x.desc?`<div class="ds">${fmtDesc(x.desc)}</div>`:''}</div>`).join('');
+  const edu = filled(d.education).map(x=>`<div class="item">
+      <div class="ih"><span>${esc(x.degree||x.school)}</span><span class="dt">${dateRange(x.start,x.end,false,L)}</span></div>
+      <div class="im">${esc([x.degree?x.school:'',x.location].filter(Boolean).join(' · '))}${x.score?` · ${L.score} ${esc(x.score)}`:''}</div>
+      ${x.desc?`<div class="ds">${fmtDesc(x.desc)}</div>`:''}</div>`).join('');
+  const sk = filled(d.skills);
+  let skills = '';
+  if(sk.length){
+    if(st==='tag') skills = `<div class="tags">${sk.map(s=>`<span class="tag">${esc(s.name)}</span>`).join('')}</div>`;
+    else if(st==='dot') skills = sk.map(s=>`<div class="sk dotrow"><span>${esc(s.name)}</span><span class="dots">${[1,2,3,4,5].map(i=>`<i class="${i<=s.level?'f':''}"></i>`).join('')}</span></div>`).join('');
+    else skills = sk.map(s=>`<div class="sk"><div>${esc(s.name)}</div><div class="bar"><i style="width:${(+s.level||0)*20}%"></i></div></div>`).join('');
+  }
+  const langs = filled(d.languages).map(x=>`<div class="lg"><span>${esc(x.name)}</span><span class="im">${esc(x.level)}</span></div>`).join('');
+  const certs = filled(d.certs).map(x=>`<div class="item"><div class="ih"><span>${esc(x.name)}</span><span class="dt">${esc(x.year)}</span></div>${x.issuer?`<div class="im">${esc(x.issuer)}</div>`:''}</div>`).join('');
+  const proj = filled(d.projects).map(x=>`<div class="item"><div class="ih"><span>${esc(x.name)}</span>${x.link?`<span class="dt">${esc(x.link)}</span>`:''}</div>${x.desc?`<div class="ds">${fmtDesc(x.desc)}</div>`:''}</div>`).join('');
+  const intr = String(p.interests||'').split(',').map(s=>s.trim()).filter(Boolean);
+  return {
+    L,
+    photo: d.design.photo!=='none' && p.photo ? `<img class="ph ${d.design.photo}" src="${p.photo}" alt="">` : '',
+    name: esc(p.name || 'Nama Lengkap'),
+    title: p.title ? `<div class="jt">${esc(p.title)}</div>` : '',
+    contactList: contacts.map(([k,v])=>`<div class="ci">${ic(k)}<span>${esc(v).replace(/([@/])/g,'$1<wbr>')}</span></div>`).join(''),
+    contactInline: contacts.map(([k,v])=>`<span>${ic(k)}${esc(v)}</span>`).join(''),
+    summary: p.summary ? `<div class="ds">${fmtDesc(p.summary)}</div>` : '',
+    exp, edu, skills, langs, certs, proj,
+    interests: intr.length ? `<div class="tags">${intr.map(s=>`<span class="tag">${esc(s)}</span>`).join('')}</div>` : ''
+  };
+}
+
+const TPL = {
+  modern(P){ const L=P.L; return `
+    <aside>${P.photo}
+      ${sec(L.contact,P.contactList)}${sec(L.skills,P.skills)}${sec(L.languages,P.langs)}${sec(L.interests,P.interests)}
+    </aside>
+    <main><header><h1 class="nm">${P.name}</h1>${P.title}</header>
+      ${sec(L.summary,P.summary)}${sec(L.experience,P.exp)}${sec(L.education,P.edu)}${sec(L.projects,P.proj)}${sec(L.certs,P.certs)}
+    </main>`; },
+  klasik(P){ const L=P.L; return `
+    <header>${P.photo}<h1 class="nm">${P.name}</h1>${P.title}<div class="cline">${P.contactInline}</div></header>
+    ${sec(L.summary,P.summary)}${sec(L.experience,P.exp)}${sec(L.education,P.edu)}${sec(L.skills,P.skills)}
+    ${sec(L.projects,P.proj)}${sec(L.certs,P.certs)}${sec(L.languages,P.langs)}${sec(L.interests,P.interests)}`; },
+  minimalis(P){ const L=P.L; const n=P.name.split(' '); const nm = n.length>1 ? `${n.slice(0,-1).join(' ')} <b>${n.slice(-1)}</b>` : `<b>${P.name}</b>`; return `
+    <header>${P.photo}<div><h1 class="nm">${nm}</h1>${P.title}<div class="accent"></div></div></header>
+    <div class="cols"><div>${sec(L.summary,P.summary)}${sec(L.experience,P.exp)}${sec(L.education,P.edu)}${sec(L.projects,P.proj)}</div>
+      <div class="side">${sec(L.contact,P.contactList)}${sec(L.skills,P.skills)}${sec(L.languages,P.langs)}${sec(L.certs,P.certs)}${sec(L.interests,P.interests)}</div></div>`; },
+  kreatif(P){ const L=P.L; return `
+    <header>${P.photo}<div><h1 class="nm">${P.name}</h1>${P.title}</div></header>
+    ${P.contactInline?`<div class="cbar">${P.contactInline}</div>`:''}
+    <div class="cols"><div class="mainc">${sec(L.summary,P.summary)}${sec(L.experience,P.exp)}${sec(L.education,P.edu)}${sec(L.projects,P.proj)}</div>
+      <div>${sec(L.skills,P.skills)}${sec(L.languages,P.langs)}${sec(L.certs,P.certs)}${sec(L.interests,P.interests)}</div></div>`; },
+  eksekutif(P){ const L=P.L; return `
+    <header>${P.photo}<div><h1 class="nm">${P.name}</h1>${P.title}</div></header>
+    <div class="cols"><div class="mainc">${sec(L.summary,P.summary)}${sec(L.experience,P.exp)}${sec(L.education,P.edu)}${sec(L.projects,P.proj)}</div>
+      <div class="side">${sec(L.contact,P.contactList)}${sec(L.skills,P.skills)}${sec(L.certs,P.certs)}${sec(L.languages,P.langs)}${sec(L.interests,P.interests)}</div></div>`; },
+  timeline(P){ const L=P.L; return `
+    <header>${P.photo||'<span></span>'}<div><h1 class="nm">${P.name}</h1>${P.title}</div><div class="hc">${P.contactList}</div></header>
+    ${sec(L.summary,P.summary)}${sec(L.experience,P.exp?`<div class="tl">${P.exp}</div>`:'')}${sec(L.education,P.edu?`<div class="tl">${P.edu}</div>`:'')}
+    <div class="grid2"><div>${sec(L.skills,P.skills)}${sec(L.languages,P.langs)}</div><div>${sec(L.certs,P.certs)}${sec(L.projects,P.proj)}${sec(L.interests,P.interests)}</div></div>`; }
+};
+
+function renderCV(){
+  const d = state.design, c = d.color || '#2563eb';
+  const light = lum(c) > 0.5;
+  const vars = [
+    `--c:${c}`, `--on:${light?'#0f172a':'#ffffff'}`, `--ct:${rgba(c,.13)}`,
+    `--ont:${light?'rgba(15,23,42,.14)':'rgba(255,255,255,.22)'}`,
+    `--hl:${lum(c)<.12?mix(c,.55):c}`,
+    `--font:'${d.font}'`, `--fs:${d.size}`
+  ].join(';');
+  const tpl = TPL[d.template] ? d.template : 'modern';
+  $('#pageWrap').innerHTML = `<div class="cv t-${tpl}" id="cv" style="${vars}">${TPL[tpl](parts(state))}</div>`;
+  fit();
+}
+
+function fit(){
+  const pv = $('#preview'), wrap = $('#pageWrap'), cv = $('#cv'); if(!cv) return;
+  const avail = pv.clientWidth - 40; if(avail <= 0) return;
+  const s = Math.min(1, avail / 794);
+  wrap.style.transform = `scale(${s})`;
+  const h = cv.offsetHeight;
+  $('#scaler').style.width = (794*s)+'px';
+  $('#scaler').style.height = (h*s)+'px';
+  $('.guides').style.transform = `scale(${s})`; $('.guides').style.transformOrigin='top left';
+  $('.guides').style.width='794px'; $('.guides').style.height = h+'px';
+}
+
+let renderT;
+function changed(){ clearTimeout(renderT); renderT = setTimeout(renderCV, 60); persist(); }
+
+/* ---------- Editor ---------- */
+function thumb(t, c){
+  const g='#e2e8f0', r=(x,y,w,h,bg)=>`<s style="left:${x}%;top:${y}%;width:${w}%;height:${h}%;background:${bg}"></s>`;
+  const lines=(x,y,n,w)=>Array.from({length:n},(_,i)=>r(x,y+i*9,w-(i%2)*12,4,g)).join('');
+  switch(t){
+    case 'modern': return r(0,0,34,100,c)+r(8,8,18,16,'rgba(255,255,255,.6)')+r(42,8,40,7,'#334155')+lines(42,24,7,50);
+    case 'klasik': return r(30,8,40,7,'#334155')+r(10,22,80,2,c)+lines(10,30,7,80);
+    case 'minimalis': return r(8,8,40,8,'#334155')+r(8,19,12,3,c)+lines(8,32,6,52)+r(68,30,1,60,g)+lines(72,32,6,22);
+    case 'kreatif': return r(0,0,100,30,c)+r(8,8,40,7,'#fff')+lines(8,40,6,55)+lines(70,40,6,24);
+    case 'eksekutif': return r(0,0,100,26,'#0f172a')+r(0,26,100,4,c)+r(68,30,32,70,'#f1f5f9')+lines(8,38,6,52)+lines(72,38,6,22);
+    case 'timeline': return r(8,8,50,7,'#334155')+r(12,24,2,70,c)+lines(20,26,7,70);
+  }
+}
+
+function renderDesignUI(){
+  const d = state.design;
+  $('#tpls').innerHTML = TEMPLATES.map(t=>`<div class="tpl ${t.id===d.template?'on':''}" data-tpl="${t.id}"><div class="thumb">${thumb(t.id,d.color)}</div>${t.name}</div>`).join('');
+  $('#swatches').innerHTML = COLORS.map(c=>`<button class="sw ${c.toLowerCase()===String(d.color).toLowerCase()?'on':''}" style="background:${c}" data-color="${c}" title="${c}"></button>`).join('');
+}
+
+function fieldHTML(sec, i, f, item){
+  const a = `data-sec="${sec}" data-i="${i}" data-k="${f.k}"`, v = item[f.k];
+  if(f.t==='check') return `<label class="chk" style="grid-column:1/-1"><input type="checkbox" ${a} ${v?'checked':''}> ${f.l}</label>`;
+  let input;
+  if(f.t==='area') input = `<textarea ${a} rows="4" placeholder="${esc(f.ph||'')}">${esc(v)}</textarea>`;
+  else if(f.t==='range') input = `<input type="range" min="1" max="5" step="1" value="${v||3}" ${a}>`;
+  else if(f.t==='select') input = `<select ${a}>${f.opts.map(o=>`<option ${o===v?'selected':''}>${o}</option>`).join('')}</select>`;
+  else { const dis = sec==='experience' && f.k==='end' && item.current ? 'disabled' : ''; input = `<input value="${esc(v)}" placeholder="${esc(f.ph||'')}" ${a} ${dis}>`; }
+  const full = f.full || f.t==='area' ? 'style="grid-column:1/-1"' : '';
+  return `<label class="f" ${full}>${f.l}${input}</label>`;
+}
+
+function renderList(sec){
+  const S = SECTIONS[sec], arr = state[sec];
+  $('#list-'+sec).innerHTML = arr.map((it,i)=>`
+    <div class="card">
+      <div class="card-h"><span class="t" data-title="${sec}-${i}">${esc(it[S.titleKey]) || S.label+' '+(i+1)}</span>
+        <button class="ib" data-mv="up" data-sec="${sec}" data-i="${i}" title="Naik">↑</button>
+        <button class="ib" data-mv="down" data-sec="${sec}" data-i="${i}" title="Turun">↓</button>
+        <button class="ib" data-mv="del" data-sec="${sec}" data-i="${i}" title="Hapus">✕</button>
+      </div>
+      <div class="row">${S.fields.map(f=>fieldHTML(sec,i,f,it)).join('')}</div>
+    </div>`).join('');
+}
+
+function fillEditor(){
+  $$('[data-path]').forEach(el=>{ const v=getPath(state, el.dataset.path); el.value = v ?? ''; });
+  const pv = $('#photoPv'); if(state.profile.photo) pv.src = state.profile.photo; else pv.removeAttribute('src');
+  Object.keys(SECTIONS).forEach(renderList);
+  renderDesignUI(); renderCode();
+}
+
+function renderCode(){
+  $('#codeBox').innerHTML = state.cloud.code
+    ? `<div class="hint" style="margin-bottom:6px">Kode CV kamu (catat baik-baik):</div><div class="code-badge">${esc(state.cloud.code)}</div>`
+    : '';
+}
+
+const editor = $('#editor');
+function onEdit(e){
+  const t = e.target;
+  if(t.dataset.path){
+    setPath(state, t.dataset.path, t.value);
+    if(t.dataset.path==='design.color') renderDesignUI();
+  } else if(t.dataset.sec && t.dataset.k){
+    const it = state[t.dataset.sec][+t.dataset.i], k = t.dataset.k;
+    it[k] = t.type==='checkbox' ? t.checked : t.type==='range' ? +t.value : t.value;
+    const S = SECTIONS[t.dataset.sec];
+    if(k===S.titleKey){ const h = $(`[data-title="${t.dataset.sec}-${t.dataset.i}"]`); if(h) h.textContent = t.value || S.label+' '+(+t.dataset.i+1); }
+    if(k==='current'){ const end = $(`[data-sec="experience"][data-i="${t.dataset.i}"][data-k="end"]`); if(end) end.disabled = t.checked; }
+  } else return;
+  changed();
+}
+editor.addEventListener('input', onEdit);
+editor.addEventListener('change', e => { if(e.target.tagName==='SELECT' || e.target.type==='checkbox') onEdit(e); });
+
+document.addEventListener('click', async e => {
+  const b = e.target.closest('button,[data-tpl]'); if(!b) return;
+  const ds = b.dataset;
+  if(ds.tab){ $$('.tab').forEach(x=>x.classList.toggle('on', x===b)); $$('.pane').forEach(p=>p.classList.toggle('on', p.dataset.pane===ds.tab)); return; }
+  if(ds.view){ $('#main').dataset.view = ds.view; $$('#mtabs button').forEach(x=>x.classList.toggle('on',x===b)); if(ds.view==='preview') requestAnimationFrame(fit); return; }
+  if(ds.tpl){ state.design.template = ds.tpl; renderDesignUI(); changed(); return; }
+  if(ds.color){ state.design.color = ds.color; $('[data-path="design.color"]').value = ds.color; renderDesignUI(); changed(); return; }
+  if(ds.add){ state[ds.add].push({...SECTIONS[ds.add].blank}); renderList(ds.add); changed();
+    const cards = $$('#list-'+ds.add+' .card'); cards[cards.length-1]?.scrollIntoView({behavior:'smooth',block:'center'}); cards[cards.length-1]?.querySelector('input,textarea')?.focus({preventScroll:true}); return; }
+  if(ds.mv){
+    const arr = state[ds.sec], i = +ds.i;
+    if(ds.mv==='del'){ if(!confirm('Hapus item ini?')) return; arr.splice(i,1); }
+    else { const j = ds.mv==='up' ? i-1 : i+1; if(j<0||j>=arr.length) return; [arr[i],arr[j]] = [arr[j],arr[i]]; }
+    renderList(ds.sec); changed(); return;
+  }
+  switch(ds.act){
+    case 'sample':
+      if(hasContent() && !confirm('Ganti isi CV sekarang dengan contoh?')) return;
+      { const keep = {design:state.design, cloud:state.cloud}; state = {...sampleState(), ...keep}; }
+      fillEditor(); changed(); toast('Contoh diisi. Silakan ubah sesuai datamu.'); break;
+    case 'pdf':
+      if(localStorage.getItem('cvpro_pdf_tip')) doPrint(); else $('#pdfDlg').showModal(); break;
+    case 'pdf-go':
+      if($('#pdfNoMore').checked) localStorage.setItem('cvpro_pdf_tip','1');
+      $('#pdfDlg').close(); doPrint(); break;
+    case 'photo': $('#photoIn').click(); break;
+    case 'photo-del': state.profile.photo=''; $('#photoPv').removeAttribute('src'); changed(); break;
+    case 'export': exportJSON(); break;
+    case 'import': $('#importIn').click(); break;
+    case 'reset':
+      if(!confirm('Kosongkan semua isi CV? Desain tetap dipertahankan.')) return;
+      { const keep = {design:state.design}; state = {...blankState(), ...keep}; }
+      fillEditor(); changed(); toast('CV dikosongkan.'); break;
+    case 'cloud-save': cloudSave(b); break;
+    case 'cloud-load': cloudLoad(b); break;
+  }
+});
+
+function hasContent(){ return state.profile.name || state.experience.length || state.education.length; }
+
+function doPrint(){
+  const old = document.title;
+  document.title = 'CV - ' + (state.profile.name || 'Saya');
+  const wrap = $('#pageWrap'); const prev = wrap.style.transform; wrap.style.transform='none';
+  setTimeout(()=>{ window.print(); wrap.style.transform = prev; document.title = old; fit(); }, 50);
+}
+
+/* ---------- Photo ---------- */
+$('#photoIn').addEventListener('change', e => {
+  const f = e.target.files[0]; if(!f) return;
+  const img = new Image(), url = URL.createObjectURL(f);
+  img.onload = () => {
+    const max = 360, s = Math.min(1, max / Math.max(img.width, img.height));
+    const side = Math.min(img.width, img.height);  // crop tengah jadi persegi
+    const c = document.createElement('canvas'); const out = Math.min(max, side);
+    c.width = c.height = out;
+    c.getContext('2d').drawImage(img, (img.width-side)/2, (img.height-side)/3, side, side, 0, 0, out, out);
+    state.profile.photo = c.toDataURL('image/jpeg', .82);
+    $('#photoPv').src = state.profile.photo; URL.revokeObjectURL(url); changed(); e.target.value='';
+  };
+  img.onerror = () => toast('File tidak bisa dibaca sebagai gambar.');
+  img.src = url;
+});
+
+/* ---------- JSON backup ---------- */
+function exportJSON(){
+  const blob = new Blob([JSON.stringify(state,null,2)], {type:'application/json'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+  a.download = 'cv-' + (state.profile.name||'saya').toLowerCase().replace(/\s+/g,'-') + '.json';
+  a.click(); setTimeout(()=>URL.revokeObjectURL(a.href), 1000);
+}
+$('#importIn').addEventListener('change', async e => {
+  const f = e.target.files[0]; if(!f) return;
+  try{ const s = JSON.parse(await f.text()); if(!s.profile) throw 0; state = merge(s); fillEditor(); changed(); toast('CV berhasil diimpor.'); }
+  catch(_){ toast('File JSON tidak valid.'); }
+  e.target.value='';
+});
+
+/* ---------- Cloud (Google Apps Script) ---------- */
+async function api(payload){
+  if(!API_URL) throw new Error('API_URL belum diatur di index.html');
+  const r = await fetch(API_URL, {method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body:JSON.stringify(payload)});
+  const j = await r.json(); if(!j.ok) throw new Error(j.error || 'Gagal'); return j;
+}
+async function busy(btn, fn){ const t=btn.textContent; btn.disabled=true; btn.textContent='Memproses…'; try{ await fn(); } catch(err){ toast('⚠ '+err.message, 4000); } finally{ btn.disabled=false; btn.textContent=t; } }
+
+function cloudSave(btn){
+  const pin = $('#pinIn').value.trim();
+  if(!/^\d{4,8}$/.test(pin)) return toast('PIN harus 4–8 angka.');
+  if(!state.profile.name) return toast('Isi nama dulu di tab Profil.');
+  busy(btn, async () => {
+    const {cloud, ...data} = state;
+    const j = await api({action:'save', code:state.cloud.code||'', pin, email:$('#mailIn').value.trim(), data});
+    state.cloud.code = j.code; persist(); renderCode();
+    toast(j.created ? `Tersimpan! Kode CV: ${j.code}` : 'Perubahan tersimpan ke cloud.', 5000);
+  });
+}
+function cloudLoad(btn){
+  const code = $('#loadCode').value.trim().toUpperCase(), pin = $('#loadPin').value.trim();
+  if(!code || !pin) return toast('Isi Kode CV dan PIN.');
+  busy(btn, async () => {
+    const j = await api({action:'load', code, pin});
+    state = merge({...j.data, v:1, cloud:{code}}); fillEditor(); changed();
+    $('#pinIn').value = pin; toast('CV berhasil dibuka.');
+  });
+}
+
+/* ---------- init ---------- */
+fillEditor(); renderCV();
+new ResizeObserver(fit).observe($('#preview'));
+document.fonts && document.fonts.ready.then(fit);
+window.addEventListener('afterprint', fit);
+</script>
+</body>
+</html>
